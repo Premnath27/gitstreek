@@ -75,16 +75,10 @@ router.get('/getRepos', (req,res) => {
 //Create a webhook
 router.post('/createHook', (req,res) => {
 
-  console.log("The owner is %s and repo is %s", req.body.owner, req.body.name);
-  console.log('_______')
-  console.log(req.headers);
-  console.log('_______');
-
   github.authenticate({
       type: "token",
       token: req.user.accessToken,
   });
-
   github.repos.createHook({
     owner: req.body.owner,
     repo: req.body.name,
@@ -97,33 +91,73 @@ router.post('/createHook', (req,res) => {
     }
   })
   .then((data) => {
-      console.log(data);
-      res.status(200).send({});
+    return User.findOne({id:req.user.id}).exec();
+  })
+  .then((user) => {
+    for(var i = 0; i < user.repos.length; i++) {
+      if(user.repos[i].owner === req.body.owner && user.repos[i].name === req.body.name) {
+        user.repos[i].hook.tracked = true;
+        break;
+      }
+    }
+    user.markModified('repos');
+    return user.save();
+  })
+  .then((saved) => { //update repos state
+    return res.status(200).send(saved.repos);
   })
   .catch((err) => {
-      console.log(err);
+    return res.status(404).send({});
   });
+
 });
 
 //Recieve payload from webhook and update my database
 router.post('/hookListener', (req,res) => {
 
-  User.findOne({id:req.body.sender.id}, (err,user) => {
-    if(err) { return err }
+  var promise = User.findOne({id:req.body.sender.id}).exec();
 
+  promise.then((user) => {
+    if(!user) { throw err }
 
+    if(req.headers["x-github-event"] === "push"){ //Find the repository and push to commits array
+      for(var i = 0; i < user.repos.length; i++) {
+        if(user.repos[i].owner === req.body.repository.owner.login && user.repos[i].name === req.body.repository.name) {
+          user.repos[i].commits.push({
+            time: req.body.head_commit.timestamp,
+            additions: "0",
+            deletions: "0",
+            total: "0",
+            sha: req.body.after
+          });
+          break;
+        }
+      }
+    }
 
+    if(req.headers["x-github-event"] === "ping") {
+      for(var i = 0; i < user.repos.length; i++) {
+        if(user.repos[i].owner === req.body.repository.owner.login && user.repos[i].name === req.body.repository.name) {
+          user.repos[i].hook.id = req.body.hook_id;
+          break;
+        }
+      }
+    }
 
-
-
-    user.trackedRepos.push({body: req.body ,headers:req.headers});
+    user.trackedRepos.push({header: req.headers["x-github-event"], user: !user});
     user.markModified('trackedRepos');
-    user.save((err,saved) => {
-      res.status(200).send("Success");
-    });
+    user.markModified('repos');
+    return user.save();
+  })
+  .then((saved) => {
+    res.status(200).send(saved);
+  })
+  .catch((err) => {
+    res.status(400).send(err);
   })
 
-  res.status(200).send("Success");
+
+
   // User.findOne({id:req.body.sender.id}, function(err,user){
   //   if(err) { return 'err' }
   //   user.trackedRepos.push(req.body);

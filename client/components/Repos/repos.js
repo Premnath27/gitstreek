@@ -18,7 +18,7 @@ class UserInfo extends React.Component {
         <div>
           <h1>Tracked Repositories: </h1>
           <ul>
-            {[].map((repo, idx) => {
+            {this.props.repos.map((repo, idx) => {
               if(repo.hook.tracked){
                   return <li key={idx}><a href="javascript:void(0)">{idx+1}. {repo.name}</a></li>
               }
