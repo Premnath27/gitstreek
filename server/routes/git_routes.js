@@ -82,8 +82,8 @@ router.post('/createHook', (req,res) => {
   });
 
   github.repos.createHook({
-    owner: "shree",
-    repo: "basic",
+    owner: req.body.owner,
+    repo: req.body.name,
     active: true,
     name: "web",
     config: {
@@ -104,7 +104,7 @@ router.post('/createHook', (req,res) => {
 //Recieve payload from webhook and update my database
 router.post('/hookListener', (req,res) => {
 
-  User.findOne({username:"shree"}, (err,user) => {
+  User.findOne({id:req.body.sender.id}, (err,user) => {
     if(err) { return err }
     user.trackedRepos.push(req.body);
     user.markModified('trackedRepos');
