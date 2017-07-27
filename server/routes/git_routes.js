@@ -102,7 +102,7 @@ router.post('/createHook', (req,res) => {
 });
 
 //Recieve payload from webhook and update my database
-router.post('hookListener', (req,res) => {
+router.post('/hookListener', (req,res) => {
 
   User.findOne({username:"shree"}, (err,user) => {
     if(err) { return err }
