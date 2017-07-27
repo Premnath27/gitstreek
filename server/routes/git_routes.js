@@ -74,7 +74,11 @@ router.get('/getRepos', (req,res) => {
 
 //Create a webhook
 router.post('/createHook', (req,res) => {
+
   console.log("The owner is %s and repo is %s", req.body.owner, req.body.name);
+  console.log('_______')
+  console.log(req.headers);
+  console.log('_______');
 
   github.authenticate({
       type: "token",
@@ -106,7 +110,13 @@ router.post('/hookListener', (req,res) => {
 
   User.findOne({id:req.body.sender.id}, (err,user) => {
     if(err) { return err }
-    user.trackedRepos.push(req.body);
+
+
+
+
+
+
+    user.trackedRepos.push({body: req.body ,headers:req.headers});
     user.markModified('trackedRepos');
     user.save((err,saved) => {
       res.status(200).send("Success");
