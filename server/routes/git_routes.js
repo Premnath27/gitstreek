@@ -123,7 +123,7 @@ router.post('/hookListener', (req,res) => {
     if(req.headers["x-github-event"] === "push"){ //Find the repository and push to commits array
       for(var i = 0; i < user.repos.length; i++) {
         if(user.repos[i].owner === req.body.repository.owner.login && user.repos[i].name === req.body.repository.name) {
-          user.repos[i].commits.push({
+          user.repos[i].newCommits.push({
             time: req.body.head_commit.timestamp,
             additions: "0",
             deletions: "0",
