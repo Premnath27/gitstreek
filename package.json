@@ -4,9 +4,9 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server",
+    "start": "babel-node --presets es2015 server/server",
     "webpack": "webpack",
-    "prod": "NODE_ENV=production node server/server.js",
+    "prod": "NODE_ENV=production babel-node --presets es2015 server/server",
     "build": "webpack --config webpack.config.js -p --progress --colors",
     "postinstall": "webpack --config webpack.config.js -p --progress --colors"
   },
