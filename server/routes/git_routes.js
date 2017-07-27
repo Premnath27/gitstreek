@@ -103,6 +103,17 @@ router.post('/createHook', (req,res) => {
 
 //Recieve payload from webhook and update my database
 router.post('hookListener', (req,res) => {
+
+  User.findOne({username:"shree"}, (err,user) => {
+    if(err) { return err }
+    user.trackedRepos.push(req.body);
+    user.markModified('trackedRepos');
+    user.save((err,saved) => {
+      res.status(200).send("Success");
+    });
+  })
+
+  res.status(200).send("Success");
   // User.findOne({id:req.body.sender.id}, function(err,user){
   //   if(err) { return 'err' }
   //   user.trackedRepos.push(req.body);
