@@ -4,10 +4,14 @@ import { Link } from 'react-router-dom';
 class UserInfo extends React.Component {
   constructor(props){
     super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onClick(payload){
+    this.props.createHook(payload[0], payload[1]);
   }
 
   render() {
-    console.log(this.props.repos);
     return (
       <div className="repoList">
         {this.props.repos.length === 0 ? <h1>No repos to show</h1> :
@@ -15,13 +19,19 @@ class UserInfo extends React.Component {
           <h1>Tracked Repositories: </h1>
           <ul>
             {[].map((repo, idx) => {
-              return <li key={idx}><a href="#">{idx+1}. {repo.name}</a></li>
+              if(repo.hook.tracked){
+                  return <li key={idx}><a href="javascript:void(0)">{idx+1}. {repo.name}</a></li>
+              }
+              return;
             })}
           </ul>
           <h1>All Repositories: </h1>
           <ul>
             {this.props.repos.map((repo, idx) => {
-              return <li key={idx}><a href="#">{idx+1}. {repo.name}</a></li>
+              if(!repo.hook.tracked){
+                  return (<li onClick={this.onClick.bind(this,[repo.owner,repo.name])} key={idx}><a href="javascript:void(0)">{idx+1}. {repo.name}</a></li>);
+              }
+              return;
             })}
           </ul>
         </div>}

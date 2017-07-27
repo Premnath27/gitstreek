@@ -13,10 +13,6 @@ var userSchema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  url: {
-    type: String,
-    default: ''
-  },
   email: {
     type: String,
     default: ''
@@ -45,10 +41,6 @@ var userSchema = new mongoose.Schema({
     type: [],
     default: []
   },
-  trackedRepos: {
-    type: [],
-    default: []
-  },
   additions: {
     type: String,
     default: '0'
@@ -60,6 +52,14 @@ var userSchema = new mongoose.Schema({
   commits: {
     type: String,
     default: '0'
+  },
+  hook: { //For create/deletion of repository if possible!!
+    type: {tracked: Boolean, id: String },
+    default: {tracked: false, id: ''}
+  },
+  trackedRepos: {
+    type: [],
+    default: []
   }
 });
 

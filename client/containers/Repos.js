@@ -2,6 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { getRepos } from "../actions/userActions";
+import { createHook } from "../actions/repoActions"
 import ListRepos from "../components/Repos/repos"
 
 class Repos extends React.Component {
@@ -15,7 +16,7 @@ class Repos extends React.Component {
   render() {
     return (
       <div className="home">
-        <ListRepos repos={this.props.repos}/>
+        <ListRepos repos={this.props.repos} createHook={this.props.createHook.bind(this)}/>
       </div>
     );
   }
@@ -30,12 +31,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
+
   return {
     changePage: () => {
       dispatch(push());
     },
-    getRepos: () => {
-      dispatch(getRepos());
+    createHook: (owner,name) => {
+      dispatch(createHook(owner,name));
     }
   };
 };

@@ -87,7 +87,7 @@ passport.use(new GitHubStrategy({
 ));
 
 app.get('/auth/github',
-  passport.authenticate('github', { scope: [ 'repo','user:email', 'read:org'] }),
+  passport.authenticate('github', { scope: [ 'repo','user:email', 'read:org', 'read:repo_hook', 'write:repo_hook'] }),
   function(req, res){
  });
 
@@ -97,19 +97,11 @@ app.get('/auth/github/callback',
     res.redirect('/');
 });
 
-app.post('/payload', function(req,res){
-  User.findOne({username:"shree"}, function(err,user){
-    user.trackedRepos.push(req.body);
-    user.markModified('trackedRepos');
-    user.save();
-  })
-});
-
 //Routes
 app.use('/', indexRoutes);
 app.use('/git/', gitRoutes);
 
-//Serve
+//Server
 app.get('/*', function(req,res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
@@ -119,8 +111,9 @@ app.use(function(err,req,res,next){
   res.status(err.status || 500);
 });
 
-module.exports = app;
 var port = process.env.PORT || 8000;
 app.listen(port,  function() {
   console.log("Running on port: %s", port);
 });
+
+module.exports = app;

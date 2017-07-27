@@ -8,7 +8,8 @@ const userReducer = (state = initialState, action) => {
     case "GET_USER":
       state = {
           ...state,
-          user: Object.assign({},action.payload)
+          user: Object.assign({},action.payload),
+          repos: [].concat(action.payload.repos)
       };
       break;
     case "GET_REPOS":
@@ -17,6 +18,12 @@ const userReducer = (state = initialState, action) => {
         repos: [].concat(action.payload)
       }
       break;
+    case "CREATE_HOOK":
+      console.log("CREATE HOOK REDUCER");
+      state = {
+        ...state,
+        // repos: [].concat(action.payload)
+      }
     default:
       break;
   }
