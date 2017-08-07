@@ -1,23 +1,34 @@
 var router = require('express').Router();
-var User = require("../models/user");
+var Question = require("../models/question");
 
-//Get user info if logged in
-router.get('/getUser', function(req,res) {
-  if(req.user) {
-    User.findOne({id: req.user.id}, function(err, user){
-      return res.status(200).send(user);
-    });
-  }else{
-    return res.status(200).send({});
-  }
+router.post('/createQuestion', (req,res)=>{
+  req.body.options.pop();
+  var newQuestion = new Question({
+    question: req.body.question,
+    options: req.body.options
+  });
+  newQuestion.save((err,saved) => {
+    if(err) { res.status(400).send("Err??") }
+    return res.status(200).send(saved._id);
+  });
 });
 
-//Logout
-router.get('/logout', function(req, res){
-  console.log("Logged out");
-  req.logout();
-  req.session.destroy(function (err) {
-    res.redirect('/'); //Inside a callback… bulletproof!
+router.post('/updateChoices', (req,res) => {
+  Question.findById(req.body.id, (err,found) => {
+    if(err) { return res.status(400).send("err") };
+    found.options[req.body.idx].votes++;
+    found.markModified("options");
+    found.save((err,saved) => {
+      if(err) { return res.status(400).send("err") };
+      return res.status(200).send(saved.options);
+    })
+  });
+})
+
+router.get('/getQuestion', (req,res)=>{
+  Question.findById(req.query.id, (err,found) => {
+    if(err) { return res.status(400).send({question: {} })}
+    return res.status(200).send(found);
   });
 });
 

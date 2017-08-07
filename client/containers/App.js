@@ -1,43 +1,20 @@
 import React from "react";
-import { bindActionCreators } from 'redux';
 import {connect} from "react-redux";
 import { Route, Link } from 'react-router-dom';
-import { getUser } from "../actions/userActions";
 
 import Home from "./Home";
 import Navbar from "./Navbar";
-import Footer from "./Footer";
-import Graphs from "./Graphs";
-import Repos from "./Repos";
-import Settings from "./Settings";
+import Submit from "./Submit";
+import Question from "./Question"
 
 export default class App extends React.Component {
   render() {
     return(
       <div className="app">
-        <Navbar/>
         <Route exact path="/" component={Home} />
-        <Route path="/graphs" component={Graphs} />
-        <Route path="/repos" component={Repos} />
-        <Route path="/settings" component={Settings} />
+        <Route exact path="/success/:id" component={Submit} />
+        <Route exact path="/question/:id" component={Question} />
       </div>
     );
   }
 };
-
-//The home component needs user
-// const mapStateToProps = (state) => {
-//   return {
-//     user: state.user
-//   };
-// };
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getUser: () => {
-//       dispatch(getUser());
-//     }
-//   };
-// };
-//
-// export default connect(mapStateToProps, mapDispatchToProps)(App);

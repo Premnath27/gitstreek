@@ -1,6 +1,15 @@
-export function createHook(owner, name) {
+import { history } from "../store";
+
+export const questionChange = (question) => {
+  return {
+    type: 'QUESTION_CHANGE',
+    payload: {question: question}
+  }
+}
+
+export const createQuestion = (question, options) => {
   return dispatch => {
-    fetch(`/git/createHook`, {
+    fetch('/createQuestion', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -8,58 +17,64 @@ export function createHook(owner, name) {
         "Content-Type": 'application/json'
       },
       body: JSON.stringify({
-      	owner: owner,
-      	name: name
+      	question: question,
+      	options: options
       })
     })
     .then( response => response.json())
     .then((response) => {
-      console.log("RESPONSE: ", response);
       return (
         dispatch({
-          type: "CREATE_HOOK",
-          payload: response
+          type: "CREATE_QUESTION",
+          payload: {id:response}
         })
       );
     })
+    .then((response) => {
+      return history.push('/success/'+response.payload.id);
+    })
     .catch((error) => {
-      console.log("FAILED TO CREATE HOOK");
+      console.log("You fudged up");
       return (
         dispatch({
-          type: "default",
+          type: "FAILED_CREATE_QUESTION",
           payload: null
         })
       );
     });
-  };
-};
+  }
+}
 
-export function getRepoStats() {
+export const getQuestion = (id) => {
   return dispatch => {
-    fetch('/git/getRepos', {
+    fetch('/getQuestion?id='+id, {
       method: 'GET',
       credentials: 'include',
       headers: {
         Accept: 'application/json',
-      }
+        "Content-Type": 'application/json'
+      },
+      qs: JSON.stringify({
+      	id: id
+      })
     })
     .then( response => response.json())
     .then((response) => {
       return (
         dispatch({
-          type: "GET_REPOS",
+          type: "GET_QUESTION",
           payload: response
         })
       );
     })
     .catch((error) => {
-      console.log("Please login!");
+      console.log("YOU DIDNT GET QUESTION");
       return (
         dispatch({
-          type: "GET_REPOS",
+          type: "FAILED_GET_QUESTION",
           payload: null
         })
       );
     });
-  };
-};
+  }
+}

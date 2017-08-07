@@ -1,205 +1,207 @@
+/* Font STYLES */
+@font-face {
+  font-family: ConcertOne;
+  src: url("../fonts/ConcertOne.ttf");
+}
+@font-face {
+  font-family: FredokaOne;
+  src: url("../fonts/FredokaOne.ttf");
+}
+@font-face {
+  font-family: IndieFlower;
+  src: url("../fonts/IndieFlower.ttf");
+}
+@font-face {
+  font-family: ShadowsIntoLight;
+  src: url("../fonts/ShadowsIntoLight.ttf");
+}
+
 body {
   margin: 0px;
-  background: #afceff;
+  background-color: #f6ff00;
 }
 
-/* NAVBAR STYLES */
-nav {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  display: flex;
+html { background-color: #f6ff00; }
+
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
   display: block;
-  font-family: "Courier New", "Times New Roman";
-  background-color: white;
 }
 
-nav img{
-  height: 58px;
-  width: 70px;
-}
-
-nav ul{
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
-  justify-content: center;
-}
-
-nav a{
-  text-decoration: none;
-  text-align: center;
-  padding: 14px 50px;
-  color: #4c8ef7;
-  display: block;
-  font-size: 25px;
-}
-
-nav a:hover{
-  color: #004ef7;
-  font-weight: bolder;
-}
-/* ENDING NAVBAR STYLES*/
-
-/* INTRODUCTION STYLES */
-@font-face {
-  font-family: UbuntuCondensed;
-  src: url("../fonts/UbuntuCondensed.ttf");
-}
-
-@font-face {
-  font-family: Hind;
-  src: url("../fonts/Hind.ttf");
-}
-
-.intro {
-  margin: 40px;
-  background-color: white;
-  padding: 20px 20px 30px 20px;
-  display: flex;
-  display: block;
-  justify-content: center;
-}
-
-.intro h1{
-  font-family: Hind , sans-serif;
-  color: #636B96;
-  font-size: 50px;
-  margin: 0px;
-}
-
-.intro p{
-  font-family: UbuntuCondensed;
-  font-size: 20px;
-  color: #636B96;
-  margin: 0px;
-  padding: 0px 0px 30px 0px;
-}
-
-.comingSoon {
-  text-decoration: none;
-  font-size: 20px;
-  font-family: fantasy;
-  color: white;
-  border-radius: 4px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  background: #636B96;
-  padding: 10px;
-  border: 0px 0px 50px 0px;
-}
-
-.comingSoon:hover {
-  background-color: #2c245b;
-}
-
-.home {
+.app {
   margin: 0px;
   padding: 0px;
   border: 0px;
-  height: 100%;
-  width: 100%;
+  display: block;
+  display: flex;
+  justify-content: center;
+  background-color: #f6ff00;
 }
 
-footer{
-  background-color: white;
-  bottom: 0;
-}
-
-footer h1 {
-  margin: 0;
-  border: 0;
-  padding: 20px;
-}
-
-.repoList {
-  margin: 40px;
-  background-color: white;
+.home {
+  margin: 20px auto;
   padding: 20px 20px 30px 20px;
   display: flex;
+  justify-content: center;
   display: block;
+  max-width: 414px;
+  width: 414px;
 }
 
-.repoList ul{
-  list-style-type: none;
-  padding: 0px;
-  flex-wrap: wrap;
-  display: flex;
-}
-
-.repoList a {
-  text-decoration: none;
+.title{
+  margin: 0px;
+  padding-bottom: 15px;
+  border: 0px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #435051;
+  font-family: ConcertOne;
   text-align: center;
-  padding: 14px 16px;
-  color: #636B96;
+}
+
+/*.directions{
+  margin: 0px;
+  border: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 16px;
+  color: #435051;
+  text-align: center;
+  font-family: ConcertOne;
+}*/
+
+.question {
   display: block;
-  font-size: 17px;
-  background-color: #afceff;
-  margin: 10px;
+  margin: auto;
+  resize: none;
+  height: 180px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  font-size: 26px;
+  font-family: ConcertOne;
+  text-align: center;
+  color: #435051;
 }
 
-.repoList h1{
-  color: #636B96
+.options {
+  margin: 16px auto;
+  overflow: hidden;
+  display: block;
+  border-radius: 8px;
+  border: none;
+  font-family: ConcertOne;
+  color: #435051;
 }
 
-.repoList a:hover{
-  color: #004ef7;
-  font-weight: bolder;
+.input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  font-family: ConcertOne;
+  color: #435051;
+  overflow: hidden;
+  margin: 16px auto;
+}
+
+.submit {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  color: #435051;
+  font-size: 20px;
+  font-family: ConcertOne;
+}
+
+.copyButton {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  color: #435051;
+  font-size: 20px;
+  font-family: ConcertOne;
+  background-color: #17d346;
+  margin-top: 15px;
+}
+
+.copyButton:hover {
+  color: #f6ff00;
+}
+
+.link {
+  color: #435051;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.link:hover {
+  color: #f6ff00;
+  text-decoration: none;
+}
+
+.displayQuestion {
+  display: block;
+  margin: 10px auto;
+  padding: 15px;
+  max-height: 250px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 26px;
+  font-family: ConcertOne;
+  text-align: center;
+  color: #435051;
+  background-color: white;
+  overflow: scroll;
+}
+
+.displayOptions {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  font-family: ConcertOne;
+  color: #435051;
+  overflow: hidden;
+  margin: 16px auto;
+  text-align: left;
+  background-color: white;
+}
+.displayOptions:hover {
+  color: #435051;
+  background-color: #17d346;
+}
+
+.displayStats {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  outline: none;
+  border-radius: 8px;
+  border: none;
+  font-family: ConcertOne;
+  color: #435051;
+  overflow: hidden;
+  margin: 16px auto;
+  text-align: left;
+  background-color: white;
 }
 
 /*Media Querries*/
-@media screen and (min-width: 900px){
-  nav ul{
-    display: flex;
-    align-items: center;
-    padding: 0px 20px 0px 20px;
-  }
-
-  .repoList{
-    display: flex;
-  }
-
-  nav img{
-    display: block;
-  }
-
-  nav{
-    justify-content: center;
-    margin-top: 100px;
-  }
-
-  .sticky {
-    position: sticky;
-    top: 0;
-    /*z-index: 100;*/
-  }
-}
-
-@media screen and (max-width: 900px){
-  nav li.logo{
-    display: none;
-    padding: 0px;
-  }
-
-  .intro h1{
-    font-size: 30px;
-  }
-
-  .intro{
-    margin:20px;
-  }
-
-  .repoList h1{
-    font-size: 25px;
-  }
-
-  .repoList a {
-    text-decoration: none;
-    text-align: center;
-    padding: 10px 15px;
-    color: #636B96;
-    display: block;
-    font-size: 14px;
-    background-color: #afceff;
-    margin: 5px;
+@media screen and (max-width: 400px){
+  .displayQuestion{
+    font-size: 22px;
+    margin: auto;
   }
 }
